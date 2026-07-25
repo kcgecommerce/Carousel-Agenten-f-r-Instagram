@@ -1,66 +1,60 @@
 # Canva-Pipeline — Machbarkeits-Check
 
-Datum: 2026-07-25. Geprüft, bevor gebaut wurde, damit der Bau-Weg nicht auf
-einer Annahme steht.
+Geprüft am 2026-07-25, bevor gebaut wurde, damit der Bau-Weg nicht auf einer
+Annahme steht. Alle Aussagen sind gegen die Canva-MCP-Tools getestet, nicht
+aus der Dokumentation abgeschrieben.
 
 ## Was nicht geht
 
 | Weg | Warum nicht |
 |---|---|
-| Brand-Template + Autofill | Konto hat **0 Brand-Templates** (`search-brand-templates` liefert leer, mit und ohne Dataset-Filter). Autofill fällt damit aus. |
-| `generate-design-structured` | Kann nur `presentation`, und verlangt zwingend ein Widget, in dem ein Mensch den Outline freigibt. Nicht automatisierbar. |
-| `generate-design` | Kann zwar `instagram_post` (1080×1350), erzeugt aber einseitige, KI-gewürfelte Designs. Nicht reproduzierbar, nicht mehrseitig. |
+| Brand-Template + Autofill | `search-brand-templates` lieferte leer — mit und ohne Dataset-Filter. Brand-Templates setzen einen entsprechenden Canva-Plan voraus. Ohne sie fällt Autofill aus. |
+| `generate-design-structured` | Kann nur `presentation`, und verlangt zwingend ein Widget, in dem ein Mensch den Outline freigibt. Für einen Agenten, der durchläuft, unbrauchbar. |
+| `generate-design` | Kann zwar `instagram_post` (1080×1350), erzeugt aber einseitige, KI-gewürfelte Designs. Nicht mehrseitig, nicht reproduzierbar, nicht im Marken-Look. |
 
 ## Was geht — der gewählte Weg
 
 ```
 copy-design (Vorlage)
   → read-design (open_transaction: true)   # liefert locator_ids je Element
-  → edit-design (replace_text je Slot)     # pro Seite ein Aufruf
+  → edit-design (replace_text je Slot)     # ein Aufruf pro Seite
   → edit-design (finalize: commit)
-  → export-design (png, 1080x1350)         # liefert eine URL pro Seite
-  → curl                                    # PNGs auf Platte
+  → export-design (png, 1080x1350)         # eine URL pro Seite
+  → herunterladen
 ```
 
-Am 2026-07-25 komplett durchgetestet. Ergebnis: 5 PNGs, je 1080×1350, 8-bit RGB.
+Am 2026-07-25 komplett durchgetestet: 5 PNGs, je 1080×1350, 8-bit RGB.
 
-## Die Vorlage
-
-`<VORLAGEN-ID>` — „Carousel-Vorlage", 5 Seiten, je 1080×1350.
-Struktur, die sich für beliebige Themen wiederverwenden lässt:
-
-1. **Cover** — Kategorie-Badge, Haupt-Claim, Unterzeile, Datums-Badge, „Wische für alle Infos"
-2. **Warum** — Titel, Fließtext, 3 Bullets, Footer, Seitenzähler
-3. **Ablauf** — 3 nummerierte Schritte mit Über- und Unterzeile
-4. **Wege** — 3 Kanäle (Online / Telefon / Vor Ort)
-5. **CTA** — Claim, Unterzeile, URL, Adresse
-
-## Brand — aus dem Design ausgelesen, nicht geraten
-
-- Rot: `<MARKENFARBE>`
-- Hintergrund: `<HINTERGRUNDFARBE>`
-- Text: `<TEXTFARBE>`
-- Weiß auf Rot: `#ffffff`
-- Schriftschnitte: `heavy` (Headlines), `semibold` (Rest)
-
-Anmerkung: die HTML-Flyer im Ordner `beitraege/` nutzen `<FLYERFARBE>`. Maßgeblich
-ist die Canva-Datei, weil daraus die Posts entstehen.
+Der Weg setzt voraus, dass in Canva **eine fertige Vorlage liegt**, die einmal
+von Hand gebaut wurde. Das ist keine Schwäche, sondern der Grund, warum das
+Ergebnis nach der Marke aussieht statt nach Stock-Design.
 
 ## Der Fallstrick — und warum er den Agenten prägt
 
 Canva-Textboxen haben **feste Breite und passen die Schriftgröße nicht an**.
-Zu langer Text bricht um, wächst nach unten und **überlappt das nächste Element**.
+Zu langer Text bricht um, wächst nach unten und **überlappt das nächste
+Element**. Das Layout ist dann zerstört, ohne dass irgendein Aufruf fehlschlägt
+— alle Statusmeldungen bleiben grün.
 
-Im Test ersetzt: „ERSTE-HILFE-KURS" → „FÜHRERSCHEIN MIT 17". Ergebnis: die
-Headline brach zu „FÜHRERSCHE / IN", schob sich über die Unterzeile, und
-„BEGLEITETES FAHREN" überlappte das Badge „BF17". Layout zerstört.
+Beobachtet im Test: eine Headline mit 12 Zeichen wurde gegen eine andere
+Headline mit ebenfalls 12 Zeichen getauscht. Die neue brach trotzdem um und
+schob sich über die Unterzeile, weil ihre Glyphen breiter sind. Zeichenzählen
+allein reicht also nicht.
 
-Konsequenz für den Bau: jeder Text-Slot braucht ein **hartes Zeichenbudget**,
-das aus Boxbreite, Schriftgröße und Zeilenzahl abgeleitet ist. Der Agent muss
-beim Texten innerhalb dieses Budgets bleiben und vor dem Export prüfen, ob
-er es eingehalten hat. Ein Agent, der einfach drauflos textet, produziert
-kaputte Slides.
+Daraus folgen zwei Schutzschichten:
 
-## Test-Artefakte
+1. **Zeichenbudget je Slot**, abgeleitet aus Boxbreite, Schriftgröße und
+   erlaubter Zeilenzahl. Greift vor dem Canva-Aufruf und fängt die groben Fälle.
+2. **Sichtprüfung des Thumbnails.** `edit-design` gibt nach jedem Edit ein
+   gerendertes Vorschaubild zurück. Der Agent schaut es an und erkennt
+   Überlappungen, die durch das Budget gerutscht sind.
 
-Wegwerf-Kopie `<TESTKOPIE-ID>` in Canva — kann gelöscht werden.
+Ein Agent ohne diese Prüfungen produziert zuverlässig kaputte Slides und meldet
+dabei Erfolg.
+
+## Was der Agent über die Vorlage wissen muss
+
+Pro Textfeld: `locator_id`, welche Rolle es im Slide spielt, Boxbreite,
+Schriftgröße, erlaubte Zeilenzahl, daraus das Zeichenbudget. Diese Abbildung
+wird einmal je Vorlage erstellt und liegt in der lokalen Konfiguration —
+sie beschreibt eine konkrete Marke und gehört deshalb nicht ins Repo.

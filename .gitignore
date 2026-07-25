@@ -3,6 +3,12 @@
 *.key
 credentials*.json
 
+# Kundenspezifisches — bleibt lokal, gehoert nicht ins oeffentliche Repo.
+# Der Agent ist generisch; die Marke kommt aus diesen Dateien.
+konfig/
+posts/
+themen/
+
 # Abhängigkeiten / Umgebungen
 node_modules/
 .venv/
