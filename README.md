@@ -1,42 +1,44 @@
-# SKAILE Building Challenge
+# Carousel-Agent — Instagram-Carousels aus einer Canva-Vorlage
 
-> Diese Datei füllst du im Laufe der Challenge aus. Die Platzhalter in eckigen
-> Klammern ersetzt du durch deine Inhalte — dein Claude Code hilft dir dabei
-> (siehe START.md).
+> SKAILE Building Challenge #2 — Abgabe 2026-07-26
 
 ## Das Problem
 
-[1-2 Sätze: Wessen Problem löst dein Agent? Was kostet das Problem heute an
-Zeit, Geld oder Nerven?]
+Für einen Kunden mache ich Social Media. Ein einzelnes
+Instagram-Carousel kostet mich heute 60–90 Minuten: Thema finden, Texte
+formulieren, Slides im Marken-Look bauen, Caption und Hashtags schreiben,
+exportieren. Das ist der Grund, warum zu wenig gepostet wird — nicht fehlende
+Ideen, sondern der Aufwand pro Post.
 
 ## Was der Agent macht
 
-[2-3 Sätze: Input rein → was passiert → Ergebnis raus. Einfach erklärt, so
-dass es jemand ohne Technik-Hintergrund versteht.]
+Ich gebe ein Thema rein (z.B. „Führerschein mit 17") — oder gar nichts, dann
+schlägt der Agent selbst passende Themen vor. Er schreibt daraus ein komplettes
+Carousel: Hook-Slide, Inhaltsslides, Call-to-Action-Slide, dazu Caption und
+Hashtags. Die Slides entstehen im Marken-Look über Canva, die Caption als
+Textdatei daneben. Raus kommt ein fertiges Post-Paket, das ich nur noch
+freigeben und hochladen muss.
 
 ## Stack
 
-- [ ] Claude Code (Agent / Skills)
+- [x] Claude Code (Agent / Skills)
 - [ ] n8n
-- [ ] Sonstiges: [was?]
+- [x] Sonstiges: Canva über MCP (Design-Erstellung + Export)
 
 ## Setup
 
-[Wie richtet man deinen Agenten ein? Wenn du es richtig gut machen willst:
-Schreib eine INSTALL.md, die an Claude adressiert ist — so wie beim
-Video-Cutter von Sebastian. Das gibt Bonuspunkte bei Doku/Teilbarkeit.]
+[Folgt — INSTALL.md wird beim Bauen geschrieben.]
 
 ## Was während der Challenge entstanden ist
 
-[2-3 Stichpunkte: Was gab es vorher schon (siehe dein Check-in-Post), was
-ist neu dazugekommen?]
+[Folgt.]
 
 ## Learnings
 
-[Die 2-3 wichtigsten Dinge, die du beim Bauen gelernt hast — auch Fails!]
+[Folgt.]
 
 ---
 
-**Demo-Video:** [Link zu Loom oder YouTube unlisted — EIN Durchlauf, ungeschnitten]
+**Demo-Video:** [Folgt]
 
-*SKAILE Academy Building Challenge — [Monat/Jahr]*
+*SKAILE Academy Building Challenge — Juli 2026*
