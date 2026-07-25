@@ -1,0 +1,78 @@
+{
+  "_hinweis": "Muster für konfig/slots.json. Die Werte hier sind erfunden. Erzeuge deine eigene Datei nach der Anleitung in INSTALL.md, Schritt 2.",
+
+  "vorlage": {
+    "design_id": "DAxxxxxxxxx",
+    "titel": "Name der Canva-Vorlage",
+    "seiten": 5,
+    "masse": { "breite": 1080, "hoehe": 1350 }
+  },
+
+  "budget_herleitung": "Budgets aus den Originaltexten der Vorlage abgeleitet, nicht aus einer Formel. Der Originaltext wurde von Hand gesetzt und passt nachweislich. Headlines bekommen 15 Prozent Abschlag, weil breite Glyphen dort am ehesten umbrechen. Alle Budgets gelten JE ZEILE.",
+
+  "seiten": [
+    {
+      "nummer": 1,
+      "page_id": "PBxxxxxxxxxxxxxx",
+      "rolle": "cover",
+      "slots": [
+        {
+          "id": "PBxxxxxxxxxxxxxx-LBxxxxxxxxxxxxxxxx",
+          "rolle": "cover_headline",
+          "zeilen": 2,
+          "budget": 10,
+          "original": "ERSTE ZEILE\nZWEITE",
+          "hinweis": "Versalien, sehr fett. Meist die haerteste Grenze im Carousel."
+        },
+        {
+          "id": "PBxxxxxxxxxxxxxx-LByyyyyyyyyyyyyyyy",
+          "rolle": "cover_unterzeile",
+          "zeilen": 1,
+          "budget": 26,
+          "original": "Kurze Unterzeile hier"
+        },
+        {
+          "id": "PBxxxxxxxxxxxxxx-LBzzzzzzzzzzzzzzzz",
+          "rolle": "cover_wischhinweis",
+          "fest": true,
+          "wert": "Wische für alle Infos"
+        }
+      ]
+    },
+    {
+      "nummer": 2,
+      "page_id": "PBaaaaaaaaaaaaaa",
+      "rolle": "inhalt",
+      "slots": [
+        {
+          "id": "PBaaaaaaaaaaaaaa-LBbbbbbbbbbbbbbbbb",
+          "rolle": "inhalt_headline",
+          "zeilen": 2,
+          "budget": 15,
+          "original": "Zwei Zeilen\nals Ueberschrift."
+        },
+        {
+          "id": "PBaaaaaaaaaaaaaa-LBcccccccccccccccc",
+          "rolle": "inhalt_fliesstext",
+          "zeilen": 4,
+          "budget": 40,
+          "fluss": true,
+          "original": "Ein Absatz, den Canva selbst umbricht. Hier gehoert kein harter Umbruch hinein, und es zaehlt die Gesamtlaenge gegen Budget mal Zeilen.",
+          "hinweis": "Fliesstext. Grenze ist die Gesamtlaenge, nicht die einzelne Zeile."
+        },
+        {
+          "id": "PBaaaaaaaaaaaaaa-LBdddddddddddddddd",
+          "rolle": "s2_footer",
+          "fest": true,
+          "wert": "{{MARKE_FOOTER}}"
+        },
+        {
+          "id": "PBaaaaaaaaaaaaaa-LBeeeeeeeeeeeeeeee",
+          "rolle": "s2_zaehler",
+          "fest": true,
+          "wert": "2/5"
+        }
+      ]
+    }
+  ]
+}

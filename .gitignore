@@ -8,6 +8,8 @@ credentials*.json
 konfig/
 posts/
 themen/
+arbeit/*
+!arbeit/.gitkeep
 
 # Abhängigkeiten / Umgebungen
 node_modules/
