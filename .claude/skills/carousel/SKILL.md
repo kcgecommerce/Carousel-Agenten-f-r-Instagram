@@ -22,9 +22,29 @@ muss. Rate nichts zusammen.
 
 ### 1. Thema bestimmen
 
-Wurde ein Thema genannt, nimm es. Wurde keines genannt, schlage fünf aus
-`themen/backlog.md` und `konfig/marke.md` vor, berücksichtige die Jahreszeit
-und lass wählen. Erfinde keine Themen an der Marke vorbei.
+Wurde ein Thema genannt, nimm es. Wurde keines genannt, schau in
+`themen/kalender.md`, was als Nächstes ansteht, und schlage es vor. Steht
+nichts an, schlage fünf aus `themen/backlog.md` und `konfig/marke.md` vor,
+berücksichtige die Jahreszeit und lass wählen. Erfinde keine Themen an der
+Marke vorbei.
+
+Bei Themen der Art **Termin** braucht es ein bestätigtes Datum. Steht im
+Kalender `TERMIN?`, frag danach und bau erst dann. Rate nie ein Datum.
+
+## Planen statt bauen
+
+Wird nach einem Plan gefragt statt nach einem Post — „plan die nächsten
+Wochen", „was posten wir im September" — dann baue kein Carousel, sondern
+schreibe `themen/kalender.md` fort:
+
+- Zwei Posts pro Woche, feste Wochentage
+- Mischung aus **Evergreen** (trägt die Grundlast), **Saison** (greift auf,
+  was gerade ohnehin Thema ist) und **Termin** (braucht ein bestätigtes Datum)
+- Nichts doppelt, was in den letzten acht Wochen schon lief
+- Saison-Anker aus `themen/backlog.md` berücksichtigen
+- Absolute Daten, nie „nächste Woche"
+
+Der Kalender ist ein Vorschlag. Überschreibt der Mensch eine Zeile, gilt seine.
 
 ### 2. Texte schreiben
 
